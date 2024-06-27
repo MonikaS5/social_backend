@@ -16,15 +16,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-	origin:'https://delicate-sable-1cf433.netlify.app'
-	
+	origin:'https://delicate-sable-1cf433.netlify.app',
+	methods: 'GET, HEAD, PUT, POST, DELETE, PATCH',
+	credentials:true
 }));
 
 app.use((req, res, next)=>{
 	res.set('Cache-control', 'no-store');
 	next();
 });
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+	setHeaders: (res,path)=>{
+		res.set('Cache-control', 'public, max-age=31536000')
+	}
+}));
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
