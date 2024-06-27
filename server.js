@@ -16,9 +16,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-	origin:'https://delicate-sable-1cf433.netlify.app',
-	methods: 'GET, HEAD, PUT, POST, DELETE, PATCH',
-	credentials:true
+	origin:'https://delicate-sable-1cf433.netlify.app'
 }));
 
 app.use((req, res, next)=>{
