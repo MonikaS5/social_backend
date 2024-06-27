@@ -15,7 +15,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+	origin:'https://delicate-sable-1cf433.netlify.app'
+}));
+
+app.use((req, res, next)=>{
+	res.set('Cache-control', 'no-store');
+	next();
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const storage = multer.diskStorage({
