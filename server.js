@@ -25,7 +25,11 @@ app.use((req, res, next)=>{
 	res.set('Cache-control', 'no-store');
 	next();
 });
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+	setHeaders: (res,path)=>{
+		res.set('Cache-control', 'public, max-age=31536000')
+	}
+}));
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
